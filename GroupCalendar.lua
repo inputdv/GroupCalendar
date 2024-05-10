@@ -501,10 +501,10 @@ function GroupCalendar_CheckItemCooldowns()
 	EventDatabase_RemoveSavedInstanceEvents();
 
 	for vBagIndex = 0, NUM_BAG_SLOTS do
-		local	vNumBagSlots = GetContainerNumSlots(vBagIndex);
+		local	vNumBagSlots = C_Container.GetContainerNumSlots(vBagIndex);
 		
 		for vBagSlotIndex = 1, vNumBagSlots do
-			local	vItemLink = GetContainerItemLink(vBagIndex, vBagSlotIndex);
+			local	vItemLink = C_Container.GetContainerItemLink(vBagIndex, vBagSlotIndex);
 
 			if vItemLink then
 				
@@ -521,9 +521,9 @@ function GroupCalendar_CheckItemCooldowns()
 					
 						if vCooldownItemInfo then
 
-							local vStart, vDuration, vEnable = GetContainerItemCooldown(vBagIndex, vBagSlotIndex);
+							local vStart, vDuration, vEnable = C_Container.GetContainerItemCooldown(vBagIndex, vBagSlotIndex);
 
-							-- local	texture, itemCount, locked, quality, readable = GetContainerItemInfo(vBagIndex, vBagSlotIndex);
+							-- local	texture, itemCount, locked, quality, readable = C_Container.GetContainerItemInfo(vBagIndex, vBagSlotIndex);
 							-- Calendar_TestMessage(vItemName..": "..texture);
 
 							if vEnable > 0 and vDuration > 60 then -- ignore cooldowns shorter than 60sec (just as equiping cooldown)
@@ -892,20 +892,9 @@ end
 
 gGroupCalendar_QueueElapsedTime = 0;
 gGroupCalendar_ExpiredEventsTime = 0;
-gGroupCalendar_NewEventsTime = 0;
 
 function GroupCalendar_Update(self, pElapsed)
 	
-	gGroupCalendar_NewEventsTime = gGroupCalendar_NewEventsTime + pElapsed;
-
-	if gGroupCalendar_NewEventsTime >= 15 then
-		gGroupCalendar_NewEventsTime = 0;
-		
-		-- Remove the existing saved info	
-		EventDatabase_AlertNewEvents();
-
-	end
-
 	gGroupCalendar_ExpiredEventsTime = gGroupCalendar_ExpiredEventsTime + pElapsed;
 
 	if gGroupCalendar_ExpiredEventsTime >= 10 then
