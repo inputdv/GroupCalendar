@@ -1,3 +1,5 @@
+This is a fork to fix the GetContainer lua errors in Season of Discovery. I cannot confirm if this fix works for other versions of Classic WOW, but it may.
+
 # Group / Guild Calendar for Classic
 
 About 
